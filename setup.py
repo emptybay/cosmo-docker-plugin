@@ -18,7 +18,7 @@ setuptools.setup(
     install_requires=[
         "bernhard",
         "docker-py>=0.2.3",
-        "cosmo-celery-common"
+        "cosmo"
     ],
     dependency_links=["{0}#egg=cosmo-celery-common-{1}".format(COSMO_CELERY, COSMO_CELERY_VERSION)]
 )
