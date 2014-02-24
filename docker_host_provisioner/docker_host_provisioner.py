@@ -19,7 +19,7 @@ container_cmds = ['/bin/sh -c "while true; do echo hello world; sleep 1; done"',
 
 RUNNING = 'running'
 
-rand_id = str(random.randint(1, 10000))
+
 
 def validate_ip(ipadd):
     try:
@@ -35,6 +35,7 @@ def create(ctx, **kwargs):
     print ctx.properties
     docker_url = "http://{}:5555".format(ctx['master_host_ip'])
     print docker_url
+    rand_id = str(random.randint(1, 10000))
     # validate_ip(master_host_ip)
     c = docker.Client(base_url=docker_url, version='1.8')
     ctx.logger.info('Creating container with params: container_name={0},container_ip{1}'.format(ctx.node_name, ctx.node_id))
