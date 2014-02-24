@@ -41,7 +41,7 @@ def create(ctx, **kwargs):
                    hostname=ctx['master_host_ip'], user='root',
                    detach=True, stdin_open=True, tty=True, mem_limit=0,
                    ports=None, environment=None, dns=None, volumes=None,
-                   volumes_from=None, network_disabled=False, name=ctx['docker_config']['container_name'])
+                   volumes_from=None, name=ctx['docker_config']['container_name'])
     ctx['container_id'] = inst_id
     ctx.update()
 
