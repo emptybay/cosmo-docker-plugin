@@ -32,7 +32,7 @@ def validate_ip(ipadd):
 @operation
 def create(ctx, **kwargs):
     print ctx.properties
-    docker_url = "tcp://{}:5555".format(ctx['master_host_ip'])
+    docker_url = "http://{}:5555".format(ctx['master_host_ip'])
     print docker_url
     # validate_ip(master_host_ip)
     c = docker.Client(base_url=docker_url, version='1.8')
@@ -48,7 +48,7 @@ def create(ctx, **kwargs):
 
 @operation
 def start(ctx, **kwargs):
-    docker_url = "tcp://{}:5555".format(ctx['master_host_ip'])
+    docker_url = "http://{}:5555".format(ctx['master_host_ip'])
     # validate_ip(master_host_ip)
     c = docker.Client(base_url=docker_url, version='1.8')
     inst_id = ctx['container_id']
@@ -69,7 +69,7 @@ def start(ctx, **kwargs):
 
 @operation
 def stop(ctx, **kwargs):
-    docker_url = "tcp://{}:5555".format(ctx['master_host_ip'])
+    docker_url = "http://{}:5555".format(ctx['master_host_ip'])
     # validate_ip(master_host_ip)
     c = docker.Client(base_url=docker_url, version='1.8')
     inst_id = ctx['container_id']
@@ -80,7 +80,7 @@ def stop(ctx, **kwargs):
 
 @operation
 def delete(ctx, **kwargs):
-    docker_url = "tcp://{}:5555".format(ctx['master_host_ip'])
+    docker_url = "http://{}:5555".format(ctx['master_host_ip'])
     # validate_ip(master_host_ip)
     c = docker.Client(base_url=docker_url, version='1.8')
     inst_id = ctx['container_id']
