@@ -2,10 +2,15 @@ __author__ = 'kobyn'
 
 import setuptools
 
+
+DOCKER_BRANCH = 'master'
+DOCKER = "https://github.com/dotcloud/docker-py/tree/{0}".format(DOCKER_BRANCH)
+
+
 COSMO_CELERY_VERSION = '0.3'
 COSMO_CELERY_BRANCH = 'develop'
 COSMO_CELERY = "https://github.com/CloudifySource/cosmo-celery-common/tarball/{0}".format(COSMO_CELERY_BRANCH)
-
+    
 setuptools.setup(
     zip_safe=True,
     name='cosmo-plugin-docker-provisioner',
@@ -17,8 +22,9 @@ setuptools.setup(
     description='Plugin for provisioning docker containers',
     install_requires=[
         "bernhard",
-        "docker-py>=0.2.3",
+        "docker-py",
         "cosmo-celery-common"
     ],
-    dependency_links=["{0}#egg=cosmo-celery-common-{1}".format(COSMO_CELERY, COSMO_CELERY_VERSION)]
+    dependency_links=["{0}#egg=cosmo-celery-common-{1}".format(COSMO_CELERY, COSMO_CELERY_VERSION),
+                      "{0}#egg=docker-py".format(DOCKER)]
 )
