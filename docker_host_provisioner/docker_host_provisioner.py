@@ -32,16 +32,16 @@ def validate_ip(ipadd):
 @operation
 def create(ctx, **kwargs):
     print ctx.properties
-    docker_url = "http://{}:5555".format(ctx.properties.get('docker_config')['master_host_ip'])
+    docker_url = "http://{}:5555".format(ctx['master_host_ip'])
     print docker_url
     # validate_ip(master_host_ip)
     c = docker.Client(base_url=docker_url, version='1.8')
     ctx.logger.info('Creating container with params: container_name={0},container_ip{1}'.format(ctx.node_name, ctx.node_id))
-    inst_id = c.create_container(ctx.properties.get('docker_config')['image'], command=container_cmds[2],
-                   hostname=ctx.properties.get('docker_config')['master_host_ip'], user='root',
+    inst_id = c.create_container(ctx['docker_config']['image'], command=container_cmds[2],
+                   hostname=ctx['master_host_ip'], user='root',
                    detach=True, stdin_open=True, tty=True, mem_limit=0,
                    ports=None, environment=None, dns=None, volumes=None,
-                   volumes_from=None, network_disabled=False, name=ctx.properties.get('docker_config')['container_name'],
+                   volumes_from=None, network_disabled=False, name=ctx['docker_config']['container_name'],
                    entrypoint=None, cpu_shares=None, working_dir=None)
     ctx['container_id'] = inst_id
     ctx.update()
@@ -49,7 +49,7 @@ def create(ctx, **kwargs):
 
 @operation
 def start(ctx, **kwargs):
-    docker_url = "tcp://{}:5555".format(ctx.properties.get('docker_config')['master_host_ip'])
+    docker_url = "http://{}:5555".format(ctx['master_host_ip'])
     # validate_ip(master_host_ip)
     c = docker.Client(base_url=docker_url, version='1.8')
     inst_id = ctx['container_id']
@@ -70,7 +70,7 @@ def start(ctx, **kwargs):
 
 @operation
 def stop(ctx, **kwargs):
-    docker_url = "tcp://{}:5555".format(ctx.properties.get('docker_config')['master_host_ip'])
+    docker_url = "http://{}:5555".format(ctx['master_host_ip'])
     # validate_ip(master_host_ip)
     c = docker.Client(base_url=docker_url, version='1.8')
     inst_id = ctx['container_id']
@@ -81,7 +81,7 @@ def stop(ctx, **kwargs):
 
 @operation
 def delete(ctx, **kwargs):
-    docker_url = "tcfilep://{}:5555".format(ctx.properties.get('docker_config')['master_host_ip'])
+    docker_url = "http://{}:5555".format(ctx['master_host_ip'])
     # validate_ip(master_host_ip)
     c = docker.Client(base_url=docker_url, version='1.8')
     inst_id = ctx['container_id']
@@ -89,7 +89,4 @@ def delete(ctx, **kwargs):
     res = c.remove_container(inst_id, v=False, link=False)
     ctx.set_stopped()
     ctx.update()
-
-
-
 
