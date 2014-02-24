@@ -6,6 +6,7 @@ Docker provisioner tasks.
 """
 
 import time
+import random
 from cloudify.decorators import operation
 from cloudify.utils import get_local_ip
 import docker
@@ -18,7 +19,7 @@ container_cmds = ['/bin/sh -c "while true; do echo hello world; sleep 1; done"',
 
 RUNNING = 'running'
 
-
+rand_id = str(random.randint(1, 10000))
 
 def validate_ip(ipadd):
     try:
@@ -41,7 +42,7 @@ def create(ctx, **kwargs):
                    hostname=ctx['master_host_ip'], user='root',
                    detach=True, stdin_open=True, tty=True, mem_limit=0,
                    ports=None, environment=None, dns=None, volumes=None,
-                   volumes_from=None, name=ctx['docker_config']['container_name'])
+                   volumes_from=None, name=ctx['docker_config']['container_name'] + randid)
     ctx['container_id'] = inst_id
     ctx.update()
 
